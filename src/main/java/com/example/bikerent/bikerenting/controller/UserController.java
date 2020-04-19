@@ -45,7 +45,12 @@ public class UserController {
         }
         else {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
-            user.setRoles("ROLE_USER");
+            if(user.getUsername().equals("admin")){
+                user.setRoles("ROLE_ADMIN,ROLE_USER");
+            }else {
+                user.setRoles("ROLE_USER");
+            }
+
             user.setActive(true);
             // user.setRoles(user.getRoles());
             userService.saveUser(user);
